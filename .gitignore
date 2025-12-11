@@ -1,0 +1,30 @@
+# --- MAC OS (Basura del sistema) ---
+.DS_Store
+
+# --- JAVA / SPRING BOOT ---
+target/
+*.class
+.mvn/
+mvnw
+mvnw.cmd
+*.jar
+*.war
+
+# --- ANGULAR / NODE ---
+node_modules/
+dist/
+.angular/
+package-lock.json 
+# (Nota: Algunos prefieren subir package-lock.json, pero para practicar clean, a veces se omite. 
+# Lo estándar es SÍ subirlo, así que bórralo de esta lista si quieres ser estricto. 
+# Yo suelo ignorarlo en proyectos personales rápidos, pero dejémoslo que SE SUBA, así que NO lo pongas aquí).
+# Corrección: NO pongas package-lock.json aquí. Git DEBE rastrearlo.
+
+# --- IDEs (Configuraciones de tu editor que no le importan a nadie más) ---
+.idea/
+.vscode/
+*.iml
+
+# --- DOCKER (Opcional) ---
+# Si tuviéramos logs o volúmenes locales mapeados aquí
+postgres_data/

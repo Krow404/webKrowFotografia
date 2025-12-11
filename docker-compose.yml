@@ -1,0 +1,53 @@
+services:
+  # 1. BASE DE DATOS
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: webkrow-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: webkrow_gallery
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. BACKEND (Spring Boot)
+  gallery-service:
+    build: ./gallery-service # Docker buscará el Dockerfile aquí
+    container_name: webkrow-backend
+    ports:
+      - "8080:8080"
+    environment:
+      # ¡OJO! Aquí está el truco Senior.
+      # Ya no usamos 'localhost', usamos el nombre del servicio 'postgres-db'
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/webkrow_gallery
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password123
+    depends_on:
+      - postgres-db
+
+  # 3. FRONTEND (Angular + Nginx)
+  frontend:
+    build: ./fronted # Ojo: ./fronted si tu carpeta se llama así
+    container_name: webkrow-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - gallery-service
+
+  # 4. PGADMIN (Opcional, para ver la BD)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: webkrow-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres_data:

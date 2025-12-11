@@ -4,9 +4,9 @@
 # --- JAVA / SPRING BOOT ---
 target/
 *.class
-.mvn/
-mvnw
-mvnw.cmd
+#.mvn/
+#mvnw
+#mvnw.cmd
 *.jar
 *.war
 

@@ -8,7 +8,8 @@ import { GalleryImage } from '../gallery-image.interface';
 })
 export class GalleryService {
   //apuntar backend a java
-  private apiUrl = 'http://localhost:8080/api/images';
+  //private apiUrl = 'http://localhost:8080/api/images';
+  private apiUrl = 'http://54.123.45.67:8080/api/images';
 
   constructor(private http: HttpClient){}
 
